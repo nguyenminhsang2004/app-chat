@@ -30,7 +30,7 @@ $(function () {
   let idUser = $("title").data("id");
   let imageLink = "/public/images/user.png";
 
-  const socket = io.connect("https://app-chat-online.herokuapp.com");
+  const socket = io.connect("https://app-chat-sangnm.herokuapp.com");
   //const socket = io.connect('http://localhost:3000');
   socket.on("connect", () => {
     let user = {
