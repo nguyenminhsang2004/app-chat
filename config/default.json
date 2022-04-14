@@ -1,0 +1,10 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3000
+  },
+  "mongodb": {
+    "urlConnect": "mongodb+srv://sangnm8:74423245@cluster0.9b1l1.mongodb.net/db-app-chat-realtime?retryWrites=true&w=majority"
+  },
+  "secret-key": "secret-key-app-chat-realtime"
+}
