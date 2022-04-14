@@ -35,11 +35,10 @@ $(function () {
               Date.now() + Math.round(Math.random() * 1e9)
             );
             window.location.replace(
-              "https://app-chat-sangnm.herokuapp.com/chat-room/chat/" +
+              "http://localhost:3000/chat-room/chat/" +
                 uniqueSuffix +
                 "/" +
                 toSlug(res.user.full_name) +
-                "-" +
                 res.user._id +
                 ".html"
             );

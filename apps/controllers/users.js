@@ -1,8 +1,8 @@
-var express = require('express');
-var config = require('config');
+var express = require("express");
+var config = require("config");
 // const sgMail = require('@sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const user_md = require('../model/users');
+const user_md = require("../model/users");
 
 var router = express.Router();
 /*
@@ -62,8 +62,8 @@ sendMailAd = async (user) => {
     return await sgMail.send(msg);
 }
 */
-router.get("/sign-in",(req,res) => {
-    res.render('signin');
+router.get("/sign-in", (req, res) => {
+  res.render("signin");
 });
 /*
 router.post("/sign-in",(req,res) => {
@@ -88,30 +88,28 @@ router.post("/sign-in",(req,res) => {
     });
 });
 */
-router.post("/sign-in-google",(req,res) => {
-    let user = req.body.user;
-    user_md.userLogin(user.email).then(result => {
-        if(result === null){
-            user_md.addNewUser(req.body.user).then(result => {
-                if(result._id){
-                    req.session.userLogin = result;
-                    res.json({"user": result,"statusCode":200});
-                }
-                else{
-                    res.json({"message":"Sign in failed","statusCode":500});
-                }
-            });
+router.post("/sign-in-google", (req, res) => {
+  let user = req.body.user;
+  user_md.userLogin(user.email).then((result) => {
+    if (result === null) {
+      user_md.addNewUser(req.body.user).then((result) => {
+        if (result._id) {
+          req.session.userLogin = result;
+          res.json({ user: result, statusCode: 200 });
+        } else {
+          res.json({ message: "Sign in failed", statusCode: 500 });
         }
-        else{
-            req.session.userLogin = result;
-            res.json({"user": result,"statusCode":200});
-        }
-    });
+      });
+    } else {
+      req.session.userLogin = result;
+      res.json({ user: result, statusCode: 200 });
+    }
+  });
 });
 
-router.get("/sign-out",(req,res) => {
-    req.session.userLogin = null;
-    res.redirect('/');
+router.get("/sign-out", (req, res) => {
+  req.session.userLogin = null;
+  res.redirect("/");
 });
 /*
 router.get("/forgot-password",(req,res) => {
@@ -138,14 +136,20 @@ router.post("/forgot-password",(req,res) => {
     
 });
 */
-router.get('/api/auth/verification/verify-account/*/*-:idUser.html', (req,res) => {
-    user_md.verifyEmail(req.params.idUser).then(result => {
-        if(result){
-            res.render('success');
+router.get(
+  "/api/auth/verification/verify-account/*/*-:idUser.html",
+  (req, res) => {
+    user_md
+      .verifyEmail(req.params.idUser)
+      .then((result) => {
+        if (result) {
+          res.render("success");
         }
-    }).catch(err => {
+      })
+      .catch((err) => {
         res.send(err);
-    });
-});
+      });
+  }
+);
 
 module.exports = router;
